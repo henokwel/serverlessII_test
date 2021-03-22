@@ -1,22 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+ import './App.css';
+import { useState, useEffect } from 'react';
 
 function App() {
+  const [msg, setMsg] = useState("Loading")
+  useEffect(() => {
+    console.log(process.env);
+    
+    fetch("api/getMsg")
+      .then((res) => res.json())
+      .then(data => setMsg(data.msg))
+  })
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <p>{msg}</p>
+        <p>{process.env.REACT_APP_API_KEY}</p>
+
       </header>
     </div>
   );
